@@ -27,7 +27,7 @@ class EventController extends AbstractController
         ]);
     }
 
-    #[Route('/evenements/{state}', name: 'app_event_index', requirements: ['state' => '[a-z\-]*'])]
+    #[Route('/evenements/{state}', name: 'app_events', requirements: ['state' => '[a-z\-]*'])]
     public function index(EventRepository $repo, string $state): Response
     {
         if($state == 'passes'){
