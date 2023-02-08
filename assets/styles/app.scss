@@ -1,0 +1,18 @@
+$font-family-base: 'Neo Sans Arabic', sans-serif;
+$primary: #1d4a90;
+$secondary: #f7a81b;
+$navbar-light-brand-color: $primary;
+$navbar-light-brand-hover-color: $secondary;
+$navbar-brand-font-size: 1.7rem;
+$navbar-light-color: $primary;
+$navbar-light-hover-color: $secondary;
+$navbar-nav-link-padding-x: 2rem;
+$card-cap-bg : #fff;
+
+
+@import '_navbar.scss';
+@import '_banner.scss';
+@import '_footer.scss';
+
+@import '~bootstrap/scss/bootstrap';
+@import url('https://fonts.cdnfonts.com/css/neo-sans-arabic');
