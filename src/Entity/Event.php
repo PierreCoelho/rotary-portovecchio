@@ -6,14 +6,23 @@ use Cocur\Slugify\Slugify;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\EventRepository;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: EventRepository::class)]
+#[Vich\Uploadable]
 class Event
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
+
+    #[Vich\UploadableField(mapping: 'event_thumbnail', fileNameProperty: 'thumbnailName')]
+    private ?File $thumbnailFile = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?string $thumbnailName = null;
 
     #[ORM\Column(length: 255)]
     private ?string $title = null;
@@ -112,6 +121,30 @@ class Event
     {
         $this->updated_at = $updated_at;
 
+        return $this;
+    }
+
+    public function getThumbnailFile(): ?File
+    {
+        return $this->thumbnailFile;
+    }
+
+    public function setThumbnailFile(?File $thumbnailFile): self
+    {
+        $this->thumbnailFile = $thumbnailFile;
+
+        return $this;
+    }
+
+    public function getThumbnailName(): ?string
+    {
+        return $this->thumbnailName;
+    }
+
+    public function setThumbnailName(?string $thumbnailName): self
+    {
+        $this->thumbnailName = $thumbnailName;
+        
         return $this;
     }
 }
