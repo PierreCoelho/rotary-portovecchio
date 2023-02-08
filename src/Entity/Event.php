@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 
-use App\Repository\EventRepository;
+use Cocur\Slugify\Slugify;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\EventRepository;
 
 #[ORM\Entity(repositoryClass: EventRepository::class)]
 class Event
@@ -47,6 +48,11 @@ class Event
         $this->title = $title;
 
         return $this;
+    }
+
+    public function getSlug(): string
+    {
+        return (new Slugify())->slugify($this->title);
     }
 
     public function getOccuresAt(): ?\DateTimeInterface

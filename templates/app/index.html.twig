@@ -1,20 +1,62 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AppController!{% endblock %}
+{% block title %}Accueil{% endblock %}
+
+{% block banner %}
+<section class="banner text-center shadow">
+    <div class="banner-filter">
+        <div class="container d-flex justify-content-around align-items-center">
+            <img src="{{ asset('build/images/fanion.png') }}" alt="" height="350">
+            <h1>Bienvenue sur le site du Rotary club de Porto Vecchio</h1>
+        </div>
+    </div>
+</section>
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<div class="container my-4">
+    <div class="section-title text-center">
+        <h2>En ce moment</h2>
+        <hr>
+    </div>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! <i class="fas fa-check"></i></h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/Users/pierre/Workspace/rotary/project/src/Controller/AppController.php'|file_link(0) }}">src/Controller/AppController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/Users/pierre/Workspace/rotary/project/templates/app/index.html.twig'|file_link(0) }}">templates/app/index.html.twig</a></code></li>
-    </ul>
+    <div class="row row-cols-1row-cols-lg-2 g-4">
+        <div class="col">
+            <div class="card h-100 shadow">
+                <div class="card-header text-end">Dernier événement</div>
+                {% if last_event is not empty %}
+                <img src="https://picsum.photos/200/300?random={{ last_event.id }}" alt="">
+                <div class="card-body">
+                    <h2 class="card-title h5">{{ last_event.title }}</h2>
+                    <p class="date">le {{ last_event.occuresAt|date("d/m/Y \\à h \\h i") }}</p>
+                    <p class="card-text">{{ last_event.description }}</p>
+                </div>
+                <div class="card-footer">
+                    <div class="text-end"><a type="button" class="btn btn-warning" href="{{ path('app_event_show', {id: last_event.id, slug: last_event.slug}) }}">Lire la suite</a></div>
+                </div>
+                {% else %}
+                <div class="card-body text-center"><h2 class="h5">Aucun événement passé</h2></div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100 shadow">
+                <div class="card-header text-end">Prochain événement</div>
+                {% if next_event is not empty %}
+                <img src="https://picsum.photos/200/300?random={{ next_event.id }}" alt="">
+                <div class="card-body">
+                    <h2 class="card-title h5">{{ next_event.title }}</h2>
+                    <p class="date">le {{ next_event.occuresAt|date("d/m/Y \\à h \\h i") }}</p>
+                    <div class="card-text">{{ next_event.description|striptags |u.truncate(200,'...',false) }}</div>
+                </div>
+                <div class="card-footer">
+                    <div class="text-end"><a type="button" class="btn btn-warning" href="{{ path('app_event_show', {id: next_event.id, slug: next_event.slug}) }}">Lire la suite</a></div>
+                </div>
+                {% else %}
+                <div class="card-body text-center"><h2 class="h5">Aucun événement prévu pour le moment</h2></div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

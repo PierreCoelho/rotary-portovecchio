@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ event.title }}{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    {% if passed %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Attention !</strong> L'événement que vous consultez actuellement est déjà passé.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+    <div class="row">
+        <div class="col-4"><img src="https://picsum.photos/200/300?random={{ event.id }}" alt="" class="shadow rounded w-100"></div>
+        <div class="col">
+            <h1 class="text-center">{{ event.title }}</h1>
+            <div class="d-flex justify-content-center">
+                <div class="date d-flex me-4">
+                    <p><i class="fa-solid fa-calendar me-3"></i><p>
+                    <p>{{ event.occuresAt|date("d/m/Y \\à h \\h i") }}</p>
+                </div>
+                <div class="location d-flex ms-4">
+                    <p><i class="fa-solid fa-location-dot me-3"></i><p>
+                    <p>{{ event.location }}</p>
+                </div>
+            </div>
+            <p>{{ event.description | raw }}</p>
+             {% if not passed %}
+             <div class="text-center">
+                <button class="btn btn-primary">Ajouter au calendrier</button>
+             </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
