@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 
 class EventType extends AbstractType
 {
@@ -17,7 +18,7 @@ class EventType extends AbstractType
             ->add('title')
             ->add('occures_at',DateTimeType::class, array('widget' => 'single_text','with_seconds' => false))
             ->add('location')
-            ->add('description')
+            ->add('description', CKEditorType::class)
             //->add('published_at')
             //->add('updated_at')
         ;
