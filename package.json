@@ -27,6 +27,6 @@
     },
     "dependencies": {
         "add-to-calendar-button": "^2.1.1",
-        "ckeditor4": "^4.20.1"
+        "ckeditor4": "github:ckeditor/ckeditor4-releases#full/latest"
     }
 }

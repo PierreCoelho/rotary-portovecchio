@@ -7,3 +7,14 @@ twig:
 fos_ck_editor:
     base_path: "build/ckeditor"
     js_path:   "build/ckeditor/ckeditor.js"
+    configs:
+        my_config:
+            toolbar: "my_toolbar"
+    toolbars:
+        configs:
+            my_toolbar: [ "@tools", "/", "@basic_styles", "@colors", "@paragraph" ]
+        items:
+            tools: [ "PasteFromWord", "-", "Find", "Replace", "-", "Scayt", "-", "Image", "Table", "HorizontalRule", "SpecialChar", "Smiley", "-","Maximize" ]
+            basic_styles: [ "FontSize", "-", "Bold", "Italic", "Underline" ]
+            colors: [ "TextColor", "BGColor" ]
+            paragraph: [ "JustifyLeft", "JustifyCenter", "JustifyRight", "JustifyBlock", "-", "NumberedList", "BulletedList", "Outdent", "Indent"]
