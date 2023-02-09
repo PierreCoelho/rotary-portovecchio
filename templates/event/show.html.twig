@@ -17,7 +17,7 @@
             <div class="d-flex justify-content-center">
                 <div class="date d-flex me-4">
                     <p><i class="fa-solid fa-calendar me-3"></i><p>
-                    <p>{{ event.occuresAt|date("d/m/Y \\à h \\h i") }}</p>
+                    <p>{{ event.occuresAt|date("d/m/Y \\à H\\hi") }}</p>
                 </div>
                 <div class="location d-flex ms-4">
                     <p><i class="fa-solid fa-location-dot me-3"></i><p>
@@ -25,10 +25,36 @@
                 </div>
             </div>
             <p>{{ event.description | raw }}</p>
-             {% if not passed %}
-             <div class="text-center">
-                <button class="btn btn-primary">Ajouter au calendrier</button>
-             </div>
+            {% if not passed %}
+            <div class="text-center mb-3">
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{ url('app_event_show', {id: event.id, slug: event.slug}) }}" target="_blank" type="button" class="btn btn-primary shadow mx-3">
+                    <i class="fa-brands fa-facebook me-2"></i> Partager sur Facebook
+                </a>
+                <a href="https://twitter.com/share?url={{ url('app_event_show', {id: event.id, slug: event.slug}) }}&text={{ event.description }}" target="_blank" class="btn btn-primary shadow mx-3">
+                    <i class="fa-brands fa-twitter me-2"></i> Partager sur Twitter
+                </a>
+                <a href="https://www.linkedin.com/shareArticle?url={{ url('app_event_show', {id: event.id, slug: event.slug}) }}&title={{ event.title }}&summary={{ event.description }}&source={{ "Rotary Porto Vecchio"|url_encode }}" target="_blank" class="btn btn-primary shadow mx-3">
+                    <i class="fa-brands fa-linkedin me-2"></i> Partager sur LinkedIn
+                </a>
+            </div>
+            <div class="text-center">
+                <add-to-calendar-button
+                    name="{{ event.title }}"
+                    description="{{ event.description }}"
+                    startDate="{{ event.occuresAt|date("Y-m-d") }}"
+                    startTime="{{ event.occuresAt|date("H:i") }}"
+                    endTime="{{ event.occuresAt|date_modify("+1 hour")|date("H:i") }}"
+                    location="{{ event.location }}"
+                    options="['Apple','Google','iCal','Microsoft365','Outlook.com','Yahoo']"
+                    timeZone="Europe/Paris"
+                    trigger="click"
+                    label="Ajouter au calendrier"
+                    inline
+                    listStyle="modal"
+                    iCalFileName="{{ event.title }}_{{ event.occuresAt|date("d-m-Y") }}"
+                >
+                </add-to-calendar-button>
+            </div>
             {% endif %}
         </div>
     </div>

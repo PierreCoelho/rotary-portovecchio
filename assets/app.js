@@ -10,6 +10,7 @@ import './styles/app.scss';
 import './js/_images.js';
 import 'bootstrap';
 import bsCustomFileInput from 'bs-custom-file-input';
+import 'add-to-calendar-button';
 
 // start the Stimulus application
 import './bootstrap';

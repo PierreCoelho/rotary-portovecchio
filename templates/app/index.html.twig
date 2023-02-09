@@ -28,7 +28,7 @@
                 <img src="https://picsum.photos/200/300?random={{ last_event.id }}" alt="">
                 <div class="card-body">
                     <h2 class="card-title h5">{{ last_event.title }}</h2>
-                    <p class="date">le {{ last_event.occuresAt|date("d/m/Y \\à h \\h i") }}</p>
+                    <p class="date">le {{ last_event.occuresAt|date("d/m/Y \\à H\\hi") }}</p>
                     <p class="card-text">{{ last_event.description }}</p>
                 </div>
                 <div class="card-footer">
@@ -46,7 +46,7 @@
                 <img src="https://picsum.photos/200/300?random={{ next_event.id }}" alt="">
                 <div class="card-body">
                     <h2 class="card-title h5">{{ next_event.title }}</h2>
-                    <p class="date">le {{ next_event.occuresAt|date("d/m/Y \\à h \\h i") }}</p>
+                    <p class="date">le {{ next_event.occuresAt|date("d/m/Y \\à H\\hi") }}</p>
                     <div class="card-text">{{ next_event.description|striptags |u.truncate(200,'...',false) }}</div>
                 </div>
                 <div class="card-footer">
