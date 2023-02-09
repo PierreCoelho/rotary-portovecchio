@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Éditer l'événement
+{% endblock %}
+
+{% block banner %}
+<section class="banner text-center shadow">
+    <div class="banner-filter">
+        <div class="d-flex justify-content-center align-items-center h-100">
+            <h1>Éditer l'événement</h1>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        {{ include('admin/event/_form.html.twig', {form: form, button: 'Éditer'}) }}
+    </div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Administration des événements
+{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Titre</th>
+                    <th>Date et heure</th>
+                    <th>Localisation</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for event in events %}
+                <tr>
+                    <td>{{ event.title }}</td>
+                    <td>{{ event.occuresAt|date("d/m/Y \\à h \\h i") }}</td>
+                    <td>{{ event.location }}</td>
+                    <td>
+                        <a href="{{ path('admin_event_edit', {id: event.id}) }}" role="button" class="btn btn-warning">Editer</a>
+                        <form method="post" action="{{ path('admin_event_delete', {id: event.id}) }}" class="d-inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir supprimer cet événement ?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('delete' ~ event.id) }}">
+                            <button class="btn btn-danger">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
