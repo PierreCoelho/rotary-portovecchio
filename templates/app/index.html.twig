@@ -20,12 +20,16 @@
         <hr>
     </div>
 
-    <div class="row row-cols-1row-cols-lg-2 g-4">
+    <div class="row row-cols-1 row-cols-lg-2 g-4">
         <div class="col">
             <div class="card h-100 shadow">
                 <div class="card-header text-end">Dernier événement</div>
                 {% if last_event is not empty %}
-                <img src="https://picsum.photos/200/300?random={{ last_event.id }}" alt="">
+                {% if last_event.thumbnailName is not empty %}
+                <img src="{{ vich_uploader_asset(last_event, 'thumbnailFile') | imagine_filter('thumb') }}" alt="Image d'illustration de l'événement {{ last_event.title }}">
+                {% else %}
+                <img src="https://picsum.photos/600/400?random={{ last_event.id }}" alt="Image d'illustration de l'événement {{ last_event.title }}">
+                {% endif %}
                 <div class="card-body">
                     <h2 class="card-title h5">{{ last_event.title }}</h2>
                     <p class="date">le {{ last_event.occuresAt|date("d/m/Y \\à H\\hi") }}</p>
@@ -43,7 +47,11 @@
             <div class="card h-100 shadow">
                 <div class="card-header text-end">Prochain événement</div>
                 {% if next_event is not empty %}
-                <img src="https://picsum.photos/200/300?random={{ next_event.id }}" alt="">
+                {% if next_event.thumbnailName is not empty %}
+                <img src="{{ vich_uploader_asset(next_event, 'thumbnailFile') | imagine_filter('thumb') }}" alt="Image d'illustration de l'événement {{ next_event.title }}">
+                {% else %}
+                <img src="https://picsum.photos/200/300?random={{ next_event.id }}" alt="Image d'illustration de l'événement {{ next_event.title }}">
+                {% endif %}
                 <div class="card-body">
                     <h2 class="card-title h5">{{ next_event.title }}</h2>
                     <p class="date">le {{ next_event.occuresAt|date("d/m/Y \\à H\\hi") }}</p>

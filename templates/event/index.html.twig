@@ -30,7 +30,11 @@
         {% for event in events %}
             <div class="col">
                 <div class="card h-100 shadow">
+                    {% if event.thumbnailName is not empty %}
+                    <img src="{{ vich_uploader_asset(event, 'thumbnailFile') | imagine_filter('thumb') }}" alt="Image d'illustration de l'événement {{ event.title }}" class="object-fit-cover card-img-top" style="height:275px">
+                    {% else %}
                     <img src="https://picsum.photos/200/300?random={{ event.id }}" alt="Image d'illustration de l'événement {{ event.title }}" class="object-fit-cover card-img-top" style="height:275px">
+                    {% endif %}
                     <div class="card-body">
                         <h2 class="card-title h4 text-center">{{ event.title }}</h2>
                         <div class="d-flex justify-content-around date">

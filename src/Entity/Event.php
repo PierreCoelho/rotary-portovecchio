@@ -6,7 +6,9 @@ use Cocur\Slugify\Slugify;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\EventRepository;
+use DateTime;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: EventRepository::class)]
@@ -132,6 +134,10 @@ class Event
     public function setThumbnailFile(?File $thumbnailFile): self
     {
         $this->thumbnailFile = $thumbnailFile;
+
+        if($this->thumbnailFile instanceof UploadedFile) {
+            $this->updated_at = new DateTime('now');
+        }
 
         return $this;
     }
