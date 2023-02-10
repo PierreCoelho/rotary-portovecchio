@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Administration des membres
+{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nom et prénom</th>
+                    <th>Adresse email</th>
+                    <th>Role</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.firstName ~ ' ' ~ user.lastName }}</td>
+                    <td>{{ user.email }}</td>
+                    {% if 'ROLE_SUPER_ADMIN' in user.roles %}
+                    <td>Super Administrateur</td>
+                    {% elseif 'ROLE_ADMIN' in user.roles %}
+                    <td>Administrateur</td>
+                    {% else %}
+                    <td>Membre</td>
+                    {% endif %}
+                    <td>
+                        <a href="{{ path('admin_user_edit', {id: user.id}) }}" role="button" class="btn btn-warning">Editer</a>
+                        <form method="post" action="{{ path('admin_user_delete', {id: user.id}) }}" class="d-inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir supprimer le compte de {{ user.firstName ~ ' ' ~ user.lastName }} ?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('delete' ~ user.id) }}">
+                            <button class="btn btn-danger">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

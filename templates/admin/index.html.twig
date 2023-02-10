@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminController!{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <section class="text-center my-4">
+        <h2>Bienvenue sur l'espace d'administration du site</h2>
+    </section>
+    <section>
+        <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3 g-4">
+            <div class="col">
+                <div class="card h-100 shadow">
+                    <div class="card-header text-center"><h3>Gérer les pages</h3></div>
+                    <div class="card-body text-center">
+                        <p>Notre histoire</p>
+                        <p>Nos causes</p>
+                        <p>Nos membres</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 shadow">
+                    <div class="card-header text-center"><h3>Gérer les événements</h3></div>
+                    <div class="card-body text-center">
+                        <p><a href="{{ path('admin_event_index') }}">Liste des événements</a></p>
+                        <p><a href="{{ path('admin_event_new') }}">Ajouter un événement</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 shadow">
+                    <div class="card-header text-center"><h3>Gérer les membres</h3></div>
+                    <div class="card-body text-center">
+                        <p><a href="{{ path('admin_user_index') }}">Liste des membres</a></p>
+                        <p><a href="{{ path('admin_user_new') }}">Ajouter un membre</a></p>
+                        <p>Envoyer un message aux membres</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

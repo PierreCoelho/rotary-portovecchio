@@ -11,7 +11,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+#[IsGranted('ROLE_ADMIN')]
 class AdminEventController extends AbstractController
 {    
     /**
@@ -24,7 +26,7 @@ class AdminEventController extends AbstractController
         $this->doctrine = $doctrine;
     }
     
-    #[Route('/admin/evenements', name: 'admin_event_index')]
+    #[Route('/administration/evenements', name: 'admin_event_index')]
     public function index(EventRepository $eventRepository): Response
     {
         $events = $eventRepository->findAll();
@@ -34,7 +36,7 @@ class AdminEventController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/evenements/creer-un-evenement', name: 'admin_event_new')]
+    #[Route('/administration/evenements/creer-un-evenement', name: 'admin_event_new')]
     public function new(Request $request): Response
     {
         $manager = $this->doctrine->getManager();
@@ -59,7 +61,7 @@ class AdminEventController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/evenements/{id}', name: 'admin_event_edit', methods: ['GET', 'POST'])]
+    #[Route('/administration/evenements/{id}', name: 'admin_event_edit', methods: ['GET', 'POST'])]
     public function edit(Event $event, Request $request): Response
     {
         $manager = $this->doctrine->getManager();
@@ -81,7 +83,7 @@ class AdminEventController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/evenements/{id}', name: 'admin_event_delete', methods: ['DELETE'])]
+    #[Route('/administration/evenements/{id}', name: 'admin_event_delete', methods: ['DELETE'])]
     public function delete(Event $event, Request $request): Response
     {
         if($this->isCsrfTokenValid('delete'.$event->getId(), $request->get('_csrf_token'))) {
