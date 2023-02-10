@@ -33,7 +33,7 @@
                 <div class="card-body">
                     <h2 class="card-title h5">{{ last_event.title }}</h2>
                     <p class="date">le {{ last_event.occuresAt|date("d/m/Y \\à H\\hi") }}</p>
-                    <p class="card-text">{{ last_event.description }}</p>
+                    <p class="card-text">{{ last_event.description| raw }}</p>
                 </div>
                 <div class="card-footer">
                     <div class="text-end"><a type="button" class="btn btn-warning" href="{{ path('app_event_show', {id: last_event.id, slug: last_event.slug}) }}">Lire la suite</a></div>
@@ -55,7 +55,7 @@
                 <div class="card-body">
                     <h2 class="card-title h5">{{ next_event.title }}</h2>
                     <p class="date">le {{ next_event.occuresAt|date("d/m/Y \\à H\\hi") }}</p>
-                    <div class="card-text">{{ next_event.description|striptags |u.truncate(200,'...',false) }}</div>
+                    <div class="card-text">{{ next_event.description | raw }}</div>
                 </div>
                 <div class="card-footer">
                     <div class="text-end"><a type="button" class="btn btn-warning" href="{{ path('app_event_show', {id: next_event.id, slug: next_event.slug}) }}">Lire la suite</a></div>
