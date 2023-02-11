@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="h-100">
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}{% endblock %} - Rotary Porto Vecchio</title>
@@ -14,7 +14,7 @@
             <script src="https://cdn.jsdelivr.net/npm/add-to-calendar-button@2" async defer></script>
         {% endblock %}
     </head>
-    <body>
+    <body class="d-flex flex-column h-100">
         {{ include('_header.html.twig') }}
 
         {% block banner %}{% endblock %}
