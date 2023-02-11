@@ -16,4 +16,16 @@ liip_imagine:
             filters:
                 upscale: { min: [600, 400]}
                 thumbnail: { size: [600, 400], mode: outbound}
+        mini:
+            quality: 50
+            format: webp
+            filters:
+                fixed: 
+                    width: 180
+                    height: 135
+        gallery:
+            format: jpeg
+            filters:
+                scale: { dim: [1000, 750]}
+
 

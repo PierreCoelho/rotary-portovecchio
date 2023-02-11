@@ -44,6 +44,9 @@ class Event
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updated_at = null;
 
+    #[ORM\OneToOne(mappedBy: 'event', cascade: ['persist', 'remove'])]
+    private ?Gallery $gallery = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -151,6 +154,28 @@ class Event
     {
         $this->thumbnailName = $thumbnailName;
         
+        return $this;
+    }
+
+    public function getGallery(): ?Gallery
+    {
+        return $this->gallery;
+    }
+
+    public function setGallery(?Gallery $gallery): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($gallery === null && $this->gallery !== null) {
+            $this->gallery->setEvent(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($gallery !== null && $gallery->getEvent() !== $this) {
+            $gallery->setEvent($this);
+        }
+
+        $this->gallery = $gallery;
+
         return $this;
     }
 }

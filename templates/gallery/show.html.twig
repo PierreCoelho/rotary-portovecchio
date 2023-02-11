@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Galerie de {{ gallery.event.title }}{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <div id="carouselExample" class="carousel slide mb-4 bg-dark text-center mx-auto" style="max-width:1000px; max-height:750px;">
+        <div class="carousel-inner">
+            {% for image in gallery.images %}
+            <div class="carousel-item {% if image is same as(gallery.images[0]) %} active {% endif %}">
+                <img src="{{ vich_uploader_asset(image, 'file') | imagine_filter('gallery')}}" alt="photo de {{ gallery.event.title }}">
+            </div>
+            {% endfor %}
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    <div class="row g-4">
+        {% for image in gallery.images %}
+        <div class="col-4"><img src="{{ vich_uploader_asset(image, 'file') | imagine_filter('thumb')}}" alt="photo de {{ gallery.event.title }}" class="w-100"></div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
