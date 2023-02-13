@@ -3,12 +3,20 @@ vich_uploader:
 
     mappings:
         event_thumbnail:
-            uri_prefix: /images/thumbnails
-            upload_destination: '%kernel.project_dir%/public/images/thumbnails'
+            uri_prefix: /images/evenements
+            upload_destination: '%kernel.project_dir%/public/images/evenements'
+            delete_on_update: true
+            delete_on_remove: true
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        section_thumbnail:
+            uri_prefix: /images/sections/
+            upload_destination: '%kernel.project_dir%/public/images/sections'
+            delete_on_update: true
+            delete_on_remove: true
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
         event_gallery:
-            uri_prefix: /images/galleries
-            upload_destination: '%kernel.project_dir%/public/images/galleries'
+            uri_prefix: /images/galeries
+            upload_destination: '%kernel.project_dir%/public/images/galeries'
             inject_on_load: false
             delete_on_update: true
             delete_on_remove: true

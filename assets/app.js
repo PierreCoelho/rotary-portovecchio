@@ -9,6 +9,7 @@
 import './styles/app.scss';
 import './js/_images.js';
 import './js/_delete_image.js';
+import './js/_delete_section_image.js';
 import './js/_add_section.js';
 import './js/_delete_section.js';
 import 'bootstrap';

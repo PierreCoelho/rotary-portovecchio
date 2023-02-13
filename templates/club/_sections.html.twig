@@ -1,0 +1,18 @@
+{% for section in page.sections %}
+<section class="mb-4 d-flex justify-content-between">
+    {% if loop.index is odd %}
+    {% if section.thumbnailName is not null %} <div class="col-4 mx-3"><img src="{{ vich_uploader_asset(section, 'thumbnailFile')|imagine_filter('static_thumb') }}" alt="{{ section.title }}" class="w-100"></div>{% endif %}
+    <div class="ms-3">
+        {% if section.title is not null %}<h2>{{ section.title }}</h2>{% endif %}
+        {{ section.content|raw }}
+    </div>
+    {% else %}
+    <div class="ms-3">
+        {% if section.title is not null %}<h2>{{ section.title }}</h2>{% endif %}
+        {{ section.content|raw }}
+    </div>
+    {% if section.thumbnailName is not null %} <div class="col-4 mx-3"><img src="{{ vich_uploader_asset(section, 'thumbnailFile')|imagine_filter('static_thumb') }}" alt="{{ section.title }}" class="w-100"></div>{% endif %}
+    {% endif %}
+</section>
+{% if not loop.last %} <hr> {% endif %}
+{% endfor %}

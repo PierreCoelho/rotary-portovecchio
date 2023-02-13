@@ -102,6 +102,22 @@ class AdminClubController extends AbstractController
         return new JsonResponse(['error' => 'Token invalide'],400);
     }
 
+    #[Route('/administration/club/supprimer-image/{id}', name: 'admin_section_image_delete', methods: ['DELETE'])]
+    public function deleteImage(Section $section, Request $request): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+
+        if($this->isCsrfTokenValid('delete'.$section->getId(), $data['_token'])) {
+            $manager = $this->doctrine->getManager();
+            $section->setThumbnailName(null);
+            $manager->flush();
+
+            return new JsonResponse(['success' => true], 200);
+        }
+
+        return new JsonResponse(['error' => 'Token invalide'],400);
+    }
+
 
     /*#[Route('/administration/club/{id}', name: 'admin_section_edit', methods: ['GET', 'POST'])]
     public function edit(Section $section, Request $request): Response

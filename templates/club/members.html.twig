@@ -14,10 +14,8 @@
 
 {% block body %}
     <div class="container mt-4">
-        {% for section in page.sections %}
-        <section class="mb-4">{{ section.content|raw }}</section>
-        <hr>
-        {% endfor %}
+        {{ include('club/_sections.html.twig') }}
+        <section>
             <h2>Les membres</h2>
             <table class="table table-striped">
                 <thead>

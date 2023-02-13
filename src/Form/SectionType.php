@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class SectionType extends AbstractType
 {
@@ -14,6 +15,9 @@ class SectionType extends AbstractType
     {
         $builder
             ->add('title')
+            ->add('thumbnailFile', FileType::class, [
+                'required' => false
+            ])
             ->add('content', CKEditorType::class)
         ;
     }
@@ -22,6 +26,7 @@ class SectionType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Section::class,
+            'translation_domain' => 'forms'
         ]);
     }
 }

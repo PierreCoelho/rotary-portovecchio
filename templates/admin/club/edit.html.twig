@@ -17,11 +17,17 @@
 
 {% block body %}
     <div class="container mt-4">
-        {# {{ include('admin/club/_form.html.twig', {form: form, button: 'Éditer'}) }} #}
         {{ form_start(form) }}
             {% for section in form.sections %}
             <section>
                 {{ form_row(section.title) }}
+                {% if section.vars.value.thumbnailName is not null %}
+                    <div>
+                        <img src="{{ vich_uploader_asset(section.vars.value, 'thumbnailFile') | imagine_filter('mini')}}" alt="{{ section.vars.value.title }}">
+                        <a href="{{ path('admin_section_image_delete', {id: section.vars.value.id}) }}" data-image-delete data-token="{{ csrf_token('delete' ~ section.vars.value.id) }}"><i class="fa-solid fa-trash-can"></i></a>
+                    </div>
+                {% endif %}
+                {{ form_row(section.thumbnailFile) }}
                 {{ form_row(section.content) }}
                 <a href="{{ path('admin_section_delete', {id: section.vars.value.id}) }}" class="btn btn-danger" data-section-delete data-token="{{ csrf_token('delete' ~ section.vars.value.id) }}">
                     <i class="fa-solid fa-trash-can"></i> Supprimer la section
@@ -49,7 +55,7 @@
                     <i class="fa-solid fa-circle-plus"></i> Ajouter une section
                 </a>
                 <button class="btn btn-primary">
-                    <i class="fa-solid fa-floppy-disk"></i> {{ button |default('Enregistrer les modification') }}
+                    <i class="fa-solid fa-floppy-disk"></i> Enregistrer les modification
                 </button>
             </div>
         {{ form_end(form) }}

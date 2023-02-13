@@ -27,5 +27,12 @@ liip_imagine:
             format: jpeg
             filters:
                 scale: { dim: [1000, 750]}
+        static_thumb:
+            quality: 75
+            format: webp
+            filters:
+                fixed:
+                    width: 500
+                    height: 500
 
 
