@@ -50,7 +50,7 @@
                 {% if next_event.thumbnailName is not empty %}
                 <img src="{{ vich_uploader_asset(next_event, 'thumbnailFile') | imagine_filter('thumb') }}" alt="Image d'illustration de l'événement {{ next_event.title }}">
                 {% else %}
-                <img src="https://picsum.photos/200/300?random={{ next_event.id }}" alt="Image d'illustration de l'événement {{ next_event.title }}">
+                <img src="https://picsum.photos/600/400?random={{ next_event.id }}" alt="Image d'illustration de l'événement {{ next_event.title }}">
                 {% endif %}
                 <div class="card-body">
                     <h2 class="card-title h5">{{ next_event.title }}</h2>
