@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Notre histoire{% endblock %}
+
+{% block banner %}
+<section class="banner text-center shadow">
+    <div class="banner-filter">
+        <div class="d-flex justify-content-center align-items-center h-100">
+            <h1>Notre histoire</h1>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        {% for section in page.sections %}
+            <section class="my-5">{{ section.content|raw }}</section>
+            <hr>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain 'pages' %}
+
+{% block title %}
+    Éditer la page "{{ page.name|trans }}"
+{% endblock %}
+
+{% block banner %}
+<section class="banner text-center shadow">
+    <div class="banner-filter">
+        <div class="d-flex justify-content-center align-items-center h-100">
+            <h1>Éditer la page "{{ page.name|trans }}"</h1>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        {# {{ include('admin/club/_form.html.twig', {form: form, button: 'Éditer'}) }} #}
+        {{ form_start(form) }}
+            {% for section in form.sections %}
+            <section>
+                {{ form_row(section.title) }}
+                {{ form_row(section.content) }}
+                <a href="{{ path('admin_section_delete', {id: section.vars.value.id}) }}" class="btn btn-danger" data-section-delete data-token="{{ csrf_token('delete' ~ section.vars.value.id) }}">
+                    <i class="fa-solid fa-trash-can"></i> Supprimer la section
+                </a>
+                <hr>
+            </section>
+            {% endfor %}
+            {# <ul id="email-fields-list"
+                data-prototype="{{ form_widget(form.sections.vars.prototype)|e }}"
+                data-widget-tags="{{ '<li></li>'|e }}"
+                data-widget-counter="{{ form.sections|length }}">
+            {% for section in form.sections %}
+                <li>
+                    {{ form_errors(section) }}
+                    {{ form_widget(section.title) }}
+                    {{ form_widget(section.content) }}
+                </li>
+            {% endfor %}
+            </ul> #}
+            <div class="text-center mb-4">
+                {# <button type="button" class="btn btn-success add-another-collection-widget" data-list-selector="#email-fields-list">
+                    <i class="fa-solid fa-circle-plus"></i> Ajouter une section
+                </button> #}
+                <a href=" {{ path('admin_section_add', {id: page.id}) }}" class="btn btn-success" data-section-add data-token="{{ csrf_token('add' ~ page.id) }}">
+                    <i class="fa-solid fa-circle-plus"></i> Ajouter une section
+                </a>
+                <button class="btn btn-primary">
+                    <i class="fa-solid fa-floppy-disk"></i> {{ button |default('Enregistrer les modification') }}
+                </button>
+            </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

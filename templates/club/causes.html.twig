@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos causes{% endblock %}
+
+{% block banner %}
+<section class="banner text-center shadow">
+    <div class="banner-filter">
+        <div class="d-flex justify-content-center align-items-center h-100">
+            <h1>Les causes que nous défendons</h1>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <section class="d-flex justify-content-around mb-4">
+        {% for section in page.sections %}
+                <div class="border">
+                    {{ section.title|raw }}
+                </div>
+        {% endfor %}
+        </section>
+
+        {% for section in page.sections %}
+            <section class="my-5">{{ section.content|raw }}</section>
+            <hr>
+        {% endfor %}
+    </div>
+{% endblock %}

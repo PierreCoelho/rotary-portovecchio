@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Repository\PageRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -11,10 +12,12 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class AdminController extends AbstractController
 {
     #[Route('/administration', name: 'admin_index')]
-    public function index(): Response
+    public function index(PageRepository $pageRepository): Response
     {
+        $pages = $pageRepository->findAll();
+
         return $this->render('admin/index.html.twig', [
-            'controller_name' => 'AdminController',
+            'pages' => $pages,
         ]);
     }
 }
