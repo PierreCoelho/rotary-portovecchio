@@ -32,7 +32,8 @@
                         <th scope="row"></th>
                         <td>{{ member.lastName ~ ' ' ~ member.firstName }}</td>
                         <td>Haha</td>
-                        <td>{{ member.firstName|lower| replace({'é':"e", 'è':"e", 'ê':"e", 'ë':"e", 'ï':"i", 'î':"i", 'à':"a", 'â':"a", 'ä':"a", 'ü':"u", 'ù':"u"}) ~ '.' ~ member.lastName|lower| replace({'é':"e", 'è':"e", 'ê':"e", 'ë':"e", 'ï':"i", 'î':"i", 'à':"a", 'â':"a", 'ä':"a", 'ü':"u", 'ù':"u"}) ~ '@rotary-portovecchio.org' }}</td>
+                        <td>{{ member.email }}</td>
+                        {# <td>{{ member.firstName|lower| replace({'é':"e", 'è':"e", 'ê':"e", 'ë':"e", 'ï':"i", 'î':"i", 'à':"a", 'â':"a", 'ä':"a", 'ü':"u", 'ù':"u"}) ~ '.' ~ member.lastName|lower| replace({'é':"e", 'è':"e", 'ê':"e", 'ë':"e", 'ï':"i", 'î':"i", 'à':"a", 'â':"a", 'ä':"a", 'ü':"u", 'ù':"u"}) ~ '@rotary-portovecchio.org' }}</td> #}
                     </tr>
                     {% endfor %}
                 </tbody>
