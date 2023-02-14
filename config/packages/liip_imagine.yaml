@@ -23,6 +23,13 @@ liip_imagine:
                 fixed: 
                     width: 180
                     height: 135
+        causes_mini:
+            quality: 50
+            format: webp
+            filters:
+                fixed: 
+                    width: 100
+                    height: 100
         gallery:
             format: jpeg
             filters:

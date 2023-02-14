@@ -31,12 +31,24 @@
                 <img src="https://picsum.photos/600/400?random={{ last_event.id }}" alt="Image d'illustration de l'événement {{ last_event.title }}">
                 {% endif %}
                 <div class="card-body">
-                    <h2 class="card-title h5">{{ last_event.title }}</h2>
-                    <p class="date">le {{ last_event.occuresAt|date("d/m/Y \\à H\\hi") }}</p>
-                    <p class="card-text">{{ last_event.description| raw }}</p>
+                    <h2 class="card-title text-center">{{ last_event.title }}</h2>
+                    <div class="row g-4">
+                        <div class="col mx-3 text-center">
+                            <div><i class="fa-regular fa-calendar h1"></i></div>
+                            <p>{{ last_event.occuresAt|date("d/m/Y") }}</p>
+                        </div>
+                        <div class="col mx-3 text-center">
+                            <div><i class="fa-regular fa-clock h1"></i></div>
+                            <p>{{ last_event.occuresAt|date("H\\hi") }}</p>
+                        </div>
+                        <div class="col mx-3 text-center">
+                            <div><i class="fa-regular fa-compass h1"></i></div>
+                            <p>{{ last_event.location }}</p>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-footer">
-                    <div class="text-end"><a type="button" class="btn btn-warning" href="{{ path('app_event_show', {id: last_event.id, slug: last_event.slug}) }}">Lire la suite</a></div>
+                    <div class="text-end"><a type="button" class="btn btn-warning" href="{{ path('app_event_show', {id: last_event.id, slug: last_event.slug}) }}">Voir le détail</a></div>
                 </div>
                 {% else %}
                 <div class="card-body text-center"><h2 class="h5">Aucun événement passé</h2></div>
@@ -53,12 +65,24 @@
                 <img src="https://picsum.photos/600/400?random={{ next_event.id }}" alt="Image d'illustration de l'événement {{ next_event.title }}">
                 {% endif %}
                 <div class="card-body">
-                    <h2 class="card-title h5">{{ next_event.title }}</h2>
-                    <p class="date">le {{ next_event.occuresAt|date("d/m/Y \\à H\\hi") }}</p>
-                    <div class="card-text">{{ next_event.description | raw }}</div>
+                    <h2 class="card-title text-center">{{ next_event.title }}</h2>
+                    <div class="row g-4">
+                        <div class="col mx-3 text-center">
+                            <div><i class="fa-regular fa-calendar h1"></i></div>
+                            <p>{{ next_event.occuresAt|date("d/m/Y") }}</p>
+                        </div>
+                        <div class="col mx-3 text-center">
+                            <div><i class="fa-regular fa-clock h1"></i></div>
+                            <p>{{ next_event.occuresAt|date("H\\hi") }}</p>
+                        </div>
+                        <div class="col mx-3 text-center">
+                            <div><i class="fa-regular fa-compass h1"></i></div>
+                            <p>{{ next_event.location }}</p>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-footer">
-                    <div class="text-end"><a type="button" class="btn btn-warning" href="{{ path('app_event_show', {id: next_event.id, slug: next_event.slug}) }}">Lire la suite</a></div>
+                    <div class="text-end"><a type="button" class="btn btn-warning" href="{{ path('app_event_show', {id: next_event.id, slug: next_event.slug}) }}">Voir le détail</a></div>
                 </div>
                 {% else %}
                 <div class="card-body text-center"><h2 class="h5">Aucun événement prévu pour le moment</h2></div>

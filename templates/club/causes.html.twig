@@ -13,11 +13,16 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container mt-4">
-        <section class="d-flex justify-content-around mb-4">
+    <div class="container my-4">
+        <section class="row row-cols-3 g-4">
         {% for section in page.sections %}
-                <div class="border">
-                    {{ section.title|raw }}
+                <div class="col">
+                    <a href="#{{ section.title|slug }}" class="text-decoration-none">
+                        <div class="rounded shadow text-center py-3 causes">
+                            {% if section.thumbnailName is not null %} <img src="{{ vich_uploader_asset(section, 'thumbnailFile')|imagine_filter('causes_mini') }}" alt="{{ section.title }}" class="rounded-circle"> {% endif %}
+                            <h2 class="h3 mt-2">{{ section.title }}</h2>
+                        </div>
+                    </a>
                 </div>
         {% endfor %}
         </section>

@@ -1,18 +1,27 @@
 {% extends 'base.html.twig' %}
 {% trans_default_domain 'pages' %}
 
-{% block title %}Hello AdminController!{% endblock %}
+{% block title %}Administration{% endblock %}
+
+{% block banner %}
+<section class="banner text-center shadow">
+    <div class="banner-filter">
+        <div class="d-flex justify-content-center align-items-center h-100">
+            <h1>Espace d'administration du site</h1>
+        </div>
+    </div>
+</section>
+{% endblock %}
 
 {% block body %}
-<div class="container mt-4">
-    <section class="text-center my-4">
-        <h2>Bienvenue sur l'espace d'administration du site</h2>
-    </section>
+<div class="container my-4">
     <section>
         <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3 g-4">
             <div class="col">
                 <div class="card h-100 shadow">
-                    <div class="card-header text-center"><h3>Gérer les pages</h3></div>
+                    <div class="card-header pt-3 text-center">
+                        <h3>Éditer les pages "Notre club"</h3>
+                    </div>
                     <div class="card-body text-center">
                         {% for page in pages %}
                         <p><a href="{{ path('admin_page_edit', {id:page.id }) }}">{{ page.name|trans }}</a></p>
@@ -22,7 +31,7 @@
             </div>
             <div class="col">
                 <div class="card h-100 shadow">
-                    <div class="card-header text-center"><h3>Gérer les événements</h3></div>
+                    <div class="card-header text-center pt-3"><h3>Gérer les événements</h3></div>
                     <div class="card-body text-center">
                         <p><a href="{{ path('admin_event_index') }}">Liste des événements</a></p>
                         <p><a href="{{ path('admin_event_new') }}">Ajouter un événement</a></p>
@@ -31,7 +40,7 @@
             </div>
             <div class="col">
                 <div class="card h-100 shadow">
-                    <div class="card-header text-center"><h3>Gérer les membres</h3></div>
+                    <div class="card-header text-center pt-3"><h3>Gérer les membres</h3></div>
                     <div class="card-body text-center">
                         <p><a href="{{ path('admin_user_index') }}">Liste des membres</a></p>
                         <p><a href="{{ path('admin_user_new') }}">Ajouter un membre</a></p>
