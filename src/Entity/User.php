@@ -33,6 +33,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $last_name = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $is_honorary = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -123,6 +126,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLastName(string $last_name): self
     {
         $this->last_name = $last_name;
+
+        return $this;
+    }
+
+    public function isIsHonorary(): ?bool
+    {
+        return $this->is_honorary;
+    }
+
+    public function setIsHonorary(?bool $is_honorary): self
+    {
+        $this->is_honorary = $is_honorary;
 
         return $this;
     }

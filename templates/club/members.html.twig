@@ -29,7 +29,7 @@
                 <tbody>
                     {% for member in members %}
                     <tr>
-                        <th scope="row"></th>
+                        <th scope="row" class="text-center">{% if member.isHonorary %} <i class="fa-solid fa-award" title="Membre honoraire"></i> {% endif %}</th>
                         <td>{{ member.lastName ~ ' ' ~ member.firstName }}</td>
                         <td>Haha</td>
                         <td>{{ member.email }}</td>

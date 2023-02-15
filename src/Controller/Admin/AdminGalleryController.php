@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use DateTime;
+use App\Entity\Event;
 use App\Entity\Image;
 use App\Entity\Gallery;
 use App\Form\GalleryType;
@@ -70,9 +71,16 @@ class AdminGalleryController extends AbstractController
     }
 
     #[Route('/administration/galerie/{id}', name: 'admin_gallery_edit', methods: ['GET', 'POST'])]
-    public function edit(Gallery $gallery, Request $request): Response
+    public function edit(Event $event, Request $request): Response
     {
         $manager = $this->doctrine->getManager();
+
+        if($event->getGallery() == null) {
+            $gallery = new Gallery();
+            $event->setGallery($gallery);
+        } else {
+            $gallery = $event->getGallery();
+        }
 
         $form = $this->createForm(GalleryType::class, $gallery);
         $form->handleRequest($request);
@@ -89,7 +97,7 @@ class AdminGalleryController extends AbstractController
 
             $this->addFlash('success', 'Les images de cet événement ont été modifiées avec succès.');
 
-            return $this->redirectToRoute('admin_gallery_index');
+            return $this->redirectToRoute('admin_event_index');
         }
 
         return $this->render('admin/gallery/edit.html.twig',[

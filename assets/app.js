@@ -12,6 +12,7 @@ import './js/_delete_image.js';
 import './js/_delete_section_image.js';
 import './js/_add_section.js';
 import './js/_delete_section.js';
+import './js/_show_gallery_image.js';
 import 'bootstrap';
 import bsCustomFileInput from 'bs-custom-file-input';
 import 'add-to-calendar-button';

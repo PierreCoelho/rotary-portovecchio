@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    Administration des événements
+    Nous contacter
 {% endblock %}
 
 {% block banner %}
 <section class="banner text-center shadow">
     <div class="banner-filter">
         <div class="d-flex justify-content-center align-items-center h-100">
-            <h1>Administration des événements</h1>
+            <h1>Nous contacter</h1>
         </div>
     </div>
 </section>
@@ -22,14 +22,19 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         {% endfor %}
-        <div class="mb-5">
-            <h2>Les événements à venir</h2>
-            <div class="text-end"><a href="#" role="button" class="btn btn-primary">Ajouter un événement</a></div>
-            {{ include('admin/event/_event_table.html.twig', {events: futur_events, passed: false}) }}
-        </div>
-        <div class="mt-5">
-            <h2>Les événements passés</h2>
-            {{ include('admin/event/_event_table.html.twig', {events: passed_events, passed: true}) }}
-        </div>
+        
+        {{ form_start(form) }}
+            <div class="row">
+                <div class="col">{{ form_row(form.firstName) }}</div>
+                <div class="col">{{ form_row(form.lastName) }}</div>
+                <div class="col">{{ form_row(form.email) }}</div>
+            </div>
+            <div class="row">
+                {{ form_row(form.message) }}
+            </div>
+            <div class="form-group text-center">
+                <button class="btn btn-primary">Envoyer</button>
+            </div>
+        {{ form_end(form) }}
     </div>
 {% endblock %}

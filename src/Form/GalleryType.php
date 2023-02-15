@@ -18,22 +18,12 @@ class GalleryType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            /* ->add('images', CollectionType::class, [
-                'entry_type' => ImageType::class,
-                'allow_add' => true,
-                'allow_delete' => true,
-                'prototype' => true
-            ]) */
             ->add('images', FileType::class, [
                 'label' => false,
                 'multiple' => true,
                 'mapped' => false,
                 'empty_data' => '',
                 'required' => 'false'
-            ])
-            ->add('event', EntityType::class, [
-                'class' => Event::class,
-                'choice_label' => 'title'
             ])
         ;
     }

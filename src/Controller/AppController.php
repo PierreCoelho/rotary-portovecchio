@@ -2,9 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Contact;
 use App\Entity\Gallery;
+use App\Form\ContactType;
 use App\Repository\EventRepository;
 use App\Repository\GalleryRepository;
+use App\Notification\ContactNotification;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -44,6 +48,25 @@ class AppController extends AbstractController
 
         return $this->render('gallery/show.html.twig', [
             'gallery' => $gallery,
+        ]);
+    }
+
+    #[Route('/contact', name: 'app_contact')]
+    public function contact(Request $request, ContactNotification $notification): Response
+    {
+       $contact = new Contact();
+       $form = $this->createForm(ContactType::class, $contact);
+       $form->handleRequest($request);
+
+       if($form->isSubmitted() && $form->isValid()) {
+            $notification->notify($contact);
+
+            $this->addFlash('success', 'Votre message a bien été envoyé. Nous vous répondrons dans les plus brefs délais.');
+            return $this->redirectToRoute('app_contact');
+       }
+
+        return $this->render('contact/index.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 }

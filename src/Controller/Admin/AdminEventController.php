@@ -29,10 +29,12 @@ class AdminEventController extends AbstractController
     #[Route('/administration/evenements', name: 'admin_event_index')]
     public function index(EventRepository $eventRepository): Response
     {
-        $events = $eventRepository->findAll();
+        $futurEvents = $eventRepository->findFuturEvents();
+        $passedEvents = $eventRepository->findPastEvents();
 
         return $this->render('admin/event/index.html.twig',[
-            'events' => $events,
+            'futur_events' => $futurEvents,
+            'passed_events' => $passedEvents,
         ]);
     }
 

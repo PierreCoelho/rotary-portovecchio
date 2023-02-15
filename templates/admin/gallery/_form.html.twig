@@ -1,6 +1,4 @@
 {{ form_start(form) }}
-    {{ form_row(form.event) }}
-    <h2>Images</h2>
     {% if app.request.attributes.get('_route') == 'admin_gallery_edit' %}
         <div class="row g-4 mb-3">
         {% for image in gallery.images %}

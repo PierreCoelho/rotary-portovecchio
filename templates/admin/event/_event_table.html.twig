@@ -1,0 +1,36 @@
+<table class="table table-striped text-center">
+    <thead>
+        <tr>
+            <th>Titre</th>
+            <th>Date et heure</th>
+            {% if passed %} <th>Nombre de photos</th> {% else %} <th>Localisation</th> {% endif %}
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for event in events %}
+        <tr>
+            <td>{{ event.title }}</td>
+            <td>{{ event.occuresAt|date("d/m/Y \\à h \\h i") }}</td>
+            {% if passed %} <td>{% if event.gallery != null %}{{ event.gallery.images|length }} {% else %} 0 {% endif %}</td> {% else %} <td>{{ event.location }}</td> {% endif %}
+            <td>
+                {% if not passed %}<a href="{{ path('admin_event_edit', {id: event.id}) }}" role="button" class="btn btn-warning">Editer</a>{% endif %}
+                <form method="post" action="{{ path('admin_event_delete', {id: event.id}) }}" class="d-inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir supprimer cet événement ?')">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('delete' ~ event.id) }}">
+                    <button class="btn btn-danger">Supprimer</button>
+                </form>
+                {% if passed %}
+                    <a href="{{ path('admin_gallery_edit', {id: event.id}) }}" role="button" class="btn btn-primary">
+                        {% if event.gallery != null %} 
+                            Galerie de l'événement
+                        {% else %}
+                            Créer la gallerie
+                        {% endif %}
+                    </a>
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
