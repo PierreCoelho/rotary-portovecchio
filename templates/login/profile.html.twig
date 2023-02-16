@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain 'pages' %}
+
+{% block title %}Mon profil{% endblock %}
+
+{% block banner %}
+<section class="banner text-center shadow">
+    <div class="banner-filter">
+        <div class="d-flex justify-content-center align-items-center h-100">
+            <h1>Mon profil</h1>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block body %}
+<div class="container my-5">
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+    <section class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h2 class="text-center">Profil de {{ app.user.firstName }} {{ app.user.lastName }}</h2>
+                    <h3>Modifier mon mot de passe</h3>
+                    {{ form_start(form) }}
+                        <div class="row">
+                            <div class="col-6">{{ form_row(form.plainPassword.first) }}</div>
+                            <div class="col-6">{{ form_row(form.plainPassword.second) }}</div>
+                        </div>
+                        <div class="text-center"><button class="btn btn-success"><i class="fa-solid fa-floppy-disk pe-2"></i>Enregistrer</button></div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
