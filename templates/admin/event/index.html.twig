@@ -26,7 +26,7 @@
              {% if app.request.get('_route') == 'admin_futur_event_list' %}
             <h2 class="text-center">Les événements à venir</h2>
             <hr>
-            <div class="text-end"><a href="#" role="button" class="btn btn-success"><i class="fa-solid fa-circle-plus pe-2"></i>Ajouter un événement</a></div>
+            <div class="text-end"><a href="{{ path('admin_event_new') }}" role="button" class="btn btn-success"><i class="fa-solid fa-circle-plus pe-2"></i>Ajouter un événement</a></div>
             {{ include('admin/event/_event_table.html.twig', {events: events, gallery: null, passed: false}) }}
             {% else %}
             <h2>Les événements passés</h2>

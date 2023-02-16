@@ -87,7 +87,7 @@ class AdminGalleryController extends AbstractController
 
             $this->addFlash('success', 'Les images de cet événement ont été modifiées avec succès.');
 
-            return $this->redirectToRoute('admin_event_index');
+            return $this->redirectToRoute('admin_past_event_list_gallery');
         }
 
         return $this->render('admin/gallery/edit.html.twig',[
@@ -108,7 +108,7 @@ class AdminGalleryController extends AbstractController
             $this->addFlash('success', 'La galerie de photos de l\'événement a été supprimée avec succès.');
         }
 
-        return $this->redirectToRoute('admin_gallery_index');
+        return $this->redirectToRoute('admin_past_event_list_gallery');
     }
 
     #[Route('/administration/image/{id}', name: 'admin_image_delete' , methods: ['DELETE'])]

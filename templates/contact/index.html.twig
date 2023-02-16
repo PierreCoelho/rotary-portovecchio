@@ -24,7 +24,7 @@
         {% endfor %}
         
         {{ form_start(form) }}
-            <div class="row">
+            <div class="row row-cols-sm-1 row-cols-lg-3">
                 <div class="col">{{ form_row(form.firstName) }}</div>
                 <div class="col">{{ form_row(form.lastName) }}</div>
                 <div class="col">{{ form_row(form.email) }}</div>

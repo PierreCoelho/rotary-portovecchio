@@ -59,6 +59,12 @@
             "config/packages/fos_ckeditor.yaml"
         ]
     },
+    "knplabs/knp-paginator-bundle": {
+        "version": "v6.1.1",
+        "files": [
+            "config/packages/knp_paginator.yml"
+        ]
+    },
     "liip/imagine-bundle": {
         "version": "2.10",
         "recipe": {

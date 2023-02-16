@@ -8,6 +8,7 @@ use App\Form\ContactType;
 use App\Repository\EventRepository;
 use App\Repository\GalleryRepository;
 use App\Notification\ContactNotification;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -28,9 +29,15 @@ class AppController extends AbstractController
     }
 
     #[Route('/galerie', name: 'app_gallery')]
-    public function gallery(GalleryRepository $galleryRepository): Response
+    public function gallery(GalleryRepository $galleryRepository, PaginatorInterface $paginator, Request $request): Response
     {
-        $galleries = $galleryRepository->findAllOrderByEventDate();
+        $galleries = $paginator->paginate(
+            $galleryRepository->findAllOrderByEventDateQuery(),
+            $request->query->getInt('page', 1),
+            6
+        );
+        
+        // $galleries = $galleryRepository->findAllOrderByEventDate();
 
         return $this->render('gallery/index.html.twig', [
             'galleries' => $galleries,

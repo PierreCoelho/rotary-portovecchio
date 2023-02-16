@@ -19,7 +19,7 @@
                 <form method="post" action="{{ path('admin_event_delete', {id: event.id}) }}" class="d-inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir supprimer cet événement ?')">
                     <input type="hidden" name="_method" value="DELETE">
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token('delete' ~ event.id) }}">
-                    <button class="btn btn-danger"><i class="fa-solid fa-trash-can pe-2"></i>Supprimer</button>
+                    <button class="btn btn-danger"><i class="fa-solid fa-trash-can pe-2"></i>Supprimer l'événement</button>
                 </form>
                 {% if passed %}
                     <a href="{{ path('admin_gallery_edit', {id: event.id}) }}" role="button" class="btn btn-primary">

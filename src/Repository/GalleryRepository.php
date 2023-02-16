@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Gallery;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -39,13 +40,12 @@ class GalleryRepository extends ServiceEntityRepository
         }
     }
 
-    public function findAllOrderByEventDate(): array
+    public function findAllOrderByEventDateQuery(): Query
     {
         return $this->createQueryBuilder('g')
                     ->leftJoin('g.event','e')
                     ->orderBy('e.occures_at', 'DESC')
                     ->getQuery()
-                    ->getResult()
         ;
     }
 

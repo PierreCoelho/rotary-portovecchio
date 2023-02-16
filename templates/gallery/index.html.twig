@@ -32,5 +32,8 @@
         </div>
         {% endfor %}
     </div>
+    <div class="d-flex justify-content-center">
+        {{ knp_pagination_render(galleries,'@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig') }}
+    </div>
 </div>
 {% endblock %}
