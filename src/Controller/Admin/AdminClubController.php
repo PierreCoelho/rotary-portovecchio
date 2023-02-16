@@ -18,6 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[IsGranted('ROLE_ADMIN')]
 class AdminClubController extends AbstractController
@@ -43,12 +44,9 @@ class AdminClubController extends AbstractController
     }
 
     #[Route('/administration/club/{id}', name: 'admin_page_edit')]
-    public function pageEdit(Page $page, PageRepository $pageRepository, Request $request): Response
+    public function pageEdit(Page $page, Request $request, TranslatorInterface $translator): Response
     {
         $manager = $this->doctrine->getManager();
-
-        //$page = $pageRepository->findOneByName('history');
-
 
         $form = $this->createForm(PageType::class,$page);
         $form->handleRequest($request);
@@ -56,7 +54,7 @@ class AdminClubController extends AbstractController
         if($form->isSubmitted() && $form->isValid()) {
             $manager->flush();
 
-            $this->addFlash('success', 'La page '. $page->getName() .' a été modifiée avec succès.');
+            $this->addFlash('success', 'La page '. $translator->trans($page->getName(), domain: 'pages') .' a été modifiée avec succès.');
 
             return $this->redirectToRoute('admin_club_index');
         }
