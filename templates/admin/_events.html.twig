@@ -1,0 +1,48 @@
+<section class="rounded shadow my-3 py-3">
+    <h2 class="text-center">Gestion des événements</h2>
+    <p class="text-center"><a href="{{ path('admin_event_new') }}" class="btn btn-success"><i class="fa-solid fa-calendar-plus pe-2"></i>Ajouter un événement</a></p>
+    <div class="row g-5 mt-2 mb-5 mx-3">
+        <div class="col">
+            <div class="row shadow p-4 h-100">
+                <h3 class="text-center pb-2">Événéments à venir</h3>
+                <div class="col">
+                    <div class="card shadow border-0 p-3 text-center h-100">
+                        <p>Il y a actuellement</p>
+                        <p class="h1">{{ futur_events|length }}</p>
+                        <p>événement(s) à venir</p>
+                        <p><a href="{{ path('admin_futur_event_list') }}" class="btn btn-primary"><i class="fa-solid fa-list-ul pe-2"></i>Voir la liste</a></p>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card shadow border-0 p-3 text-center h-100">
+                        <p>Prochain événement</p>
+                        <p class="fw-bold">{{ next_event.title }}</p>
+                        <p class="h4"><i class="fa-regular fa-calendar p-2"></i>{{ next_event.occuresAt|date("d/m/Y") }}</p>
+                        <p class="h4"><i class="fa-regular fa-clock p-2"></i>{{ next_event.occuresAt|date("H\\hi") }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="row shadow p-4 h-100">
+                <h3 class="text-center pb-2">Événéments passés</h3>
+                <div class="col">
+                    <div class="card shadow border-0 p-3 text-center h-100">
+                        <p>Il y a actuellement</p>
+                        <p class="h1 text-success">{{ galleries }}</p>
+                        <p>événement(s) possèdant une galerie</p>
+                        <p><a href="{{ path('admin_past_event_list_gallery') }}" class="btn btn-primary"><i class="fa-solid fa-list-ul pe-2"></i>Voir la liste</a></p>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card shadow border-0 p-3 text-center h-100">
+                        <p>Il y a actuellement</p>
+                        <p class="h1 text-danger">{{ past_events|length - galleries }}</p>
+                        <p>événement(s) ne possèdant pas de galerie</p>
+                        <p><a href="{{ path('admin_past_event_list_no_gallery') }}" class="btn btn-primary"><i class="fa-solid fa-list-ul pe-2"></i>Voir la liste</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

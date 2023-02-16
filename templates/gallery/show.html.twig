@@ -31,7 +31,7 @@
             <span class="visually-hidden">Next</span>
         </button>
     </div>
-    <div class="row g-4">
+    <div class="row row-cols-auto g-4">
         {% for image in gallery.images %}
         <div class="col text-center"><img src="{{ vich_uploader_asset(image, 'file') | imagine_filter('mini')}}" alt="photo de {{ gallery.event.title }}" role="button" class="shadow" onclick="carouselShow({{ image.id }})"></div>
         {% endfor %}

@@ -23,13 +23,15 @@
             </div>
         {% endfor %}
         <div class="mb-5">
-            <h2>Les événements à venir</h2>
-            <div class="text-end"><a href="#" role="button" class="btn btn-primary">Ajouter un événement</a></div>
-            {{ include('admin/event/_event_table.html.twig', {events: futur_events, passed: false}) }}
-        </div>
-        <div class="mt-5">
+             {% if app.request.get('_route') == 'admin_futur_event_list' %}
+            <h2 class="text-center">Les événements à venir</h2>
+            <hr>
+            <div class="text-end"><a href="#" role="button" class="btn btn-success"><i class="fa-solid fa-circle-plus pe-2"></i>Ajouter un événement</a></div>
+            {{ include('admin/event/_event_table.html.twig', {events: events, gallery: null, passed: false}) }}
+            {% else %}
             <h2>Les événements passés</h2>
-            {{ include('admin/event/_event_table.html.twig', {events: passed_events, passed: true}) }}
+            {{ include('admin/event/_event_table.html.twig', {events: events, gallery: gallery, passed: true}) }}
+            {% endif %}
         </div>
     </div>
 {% endblock %}

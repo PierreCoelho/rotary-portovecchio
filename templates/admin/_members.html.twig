@@ -1,17 +1,13 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}
-    Administration des membres
-{% endblock %}
-
-{% block body %}
-    <div class="container my-4">
-        {% for message in app.flashes('success') %}
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ message }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        {% endfor %}
+<section class="row g-5 rounded shadow my-3 py-3">
+    <h2 class="text-center">Gestion des membres</h2>
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+    <div class="text-end"><a href="{{ path('admin_user_new') }}" class="btn btn-success"><i class="fa-solid fa-user-plus pe-2"></i>Ajouter un membre</a></div>
+    <div>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -34,11 +30,11 @@
                     <td>Membre</td>
                     {% endif %}
                     <td>
-                        <a href="{{ path('admin_user_edit', {id: user.id}) }}" role="button" class="btn btn-warning">Editer</a>
+                        <a href="{{ path('admin_user_edit', {id: user.id}) }}" role="button" class="btn btn-primary"><i class="fa-solid fa-pen-to-square pe-2"></i>Editer</a>
                         <form method="post" action="{{ path('admin_user_delete', {id: user.id}) }}" class="d-inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir supprimer le compte de {{ user.firstName ~ ' ' ~ user.lastName }} ?')">
                             <input type="hidden" name="_method" value="DELETE">
                             <input type="hidden" name="_csrf_token" value="{{ csrf_token('delete' ~ user.id) }}">
-                            <button class="btn btn-danger">Supprimer</button>
+                            <button class="btn btn-danger"><i class="fa-solid fa-trash-can pe-2"></i>Supprimer</button>
                         </form>
                     </td>
                 </tr>
@@ -46,4 +42,4 @@
             </tbody>
         </table>
     </div>
-{% endblock %}
+</section>

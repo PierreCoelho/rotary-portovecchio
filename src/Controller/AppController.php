@@ -30,7 +30,8 @@ class AppController extends AbstractController
     #[Route('/galerie', name: 'app_gallery')]
     public function gallery(GalleryRepository $galleryRepository): Response
     {
-        $galleries = $galleryRepository->findAll();
+        $galleries = $galleryRepository->findAllOrderByEventDate();
+
         return $this->render('gallery/index.html.twig', [
             'galleries' => $galleries,
         ]);

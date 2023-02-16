@@ -11,52 +11,79 @@
     </div>
     {% endif %}
     <div class="row">
-        <div class="col-4"><img src="https://picsum.photos/200/300?random={{ event.id }}" alt="Image d'illustration de l'événement {{ event.title }}" class="shadow rounded w-100"></div>
-        <div class="col">
-            <h1 class="text-center">{{ event.title }}</h1>
-            <div class="d-flex justify-content-center">
-                <div class="date d-flex me-4">
-                    <p><i class="fa-solid fa-calendar me-3"></i><p>
-                    <p>{{ event.occuresAt|date("d/m/Y \\à H\\hi") }}</p>
-                </div>
-                <div class="location d-flex ms-4">
-                    <p><i class="fa-solid fa-location-dot me-3"></i><p>
-                    <p>{{ event.location }}</p>
-                </div>
-            </div>
-            <p>{{ event.description | raw }}</p>
-            {% if not passed %}
-            <div class="text-center mb-3">
-                <a href="https://www.facebook.com/sharer/sharer.php?u={{ url('app_event_show', {id: event.id, slug: event.slug}) }}" target="_blank" type="button" class="btn btn-primary shadow mx-3">
-                    <i class="fa-brands fa-facebook me-2"></i> Partager sur Facebook
-                </a>
-                <a href="https://twitter.com/share?url={{ url('app_event_show', {id: event.id, slug: event.slug}) }}&text={{ event.description }}" target="_blank" class="btn btn-primary shadow mx-3">
-                    <i class="fa-brands fa-twitter me-2"></i> Partager sur Twitter
-                </a>
-                <a href="https://www.linkedin.com/shareArticle?url={{ url('app_event_show', {id: event.id, slug: event.slug}) }}&title={{ event.title }}&summary={{ event.description }}&source={{ "Rotary Porto Vecchio"|url_encode }}" target="_blank" class="btn btn-primary shadow mx-3">
-                    <i class="fa-brands fa-linkedin me-2"></i> Partager sur LinkedIn
-                </a>
-            </div>
-            <div class="text-center">
-                <add-to-calendar-button
-                    name="{{ event.title }}"
-                    description="{{ event.description }}"
-                    startDate="{{ event.occuresAt|date("Y-m-d") }}"
-                    startTime="{{ event.occuresAt|date("H:i") }}"
-                    endTime="{{ event.occuresAt|date_modify("+1 hour")|date("H:i") }}"
-                    location="{{ event.location }}"
-                    options="['Apple','Google','iCal','Microsoft365','Outlook.com','Yahoo']"
-                    timeZone="Europe/Paris"
-                    trigger="click"
-                    label="Ajouter au calendrier"
-                    inline
-                    listStyle="modal"
-                    iCalFileName="{{ event.title }}_{{ event.occuresAt|date("d-m-Y") }}"
-                >
-                </add-to-calendar-button>
-            </div>
+        <div class="col-4">
+            {% if event.thumbnailName is not empty %}
+            <img src="{{ vich_uploader_asset(event, 'thumbnailFile') | imagine_filter('thumb') }}" alt="Image d'illustration de l'événement {{ event.title }}" class="shadow rounded w-100" style="height:275px">
+            {% else %}
+            <img src="https://picsum.photos/600/400?random={{ event.id }}" alt="Image d'illustration de l'événement {{ event.title }}" class="shadow rounded w-100" style="height:275px">
             {% endif %}
         </div>
+        <div class="col h-100">
+            <div class="card shadow border-0 h-100">
+                <div class="card-body">
+                    <h2 class="card-title text-center">{{ event.title }}</h2>
+                    <div class="d-flex justify-content-center">
+                        <div class="date d-flex me-4">
+                            <p><i class="fa-solid fa-calendar me-3"></i><p>
+                            <p>{{ event.occuresAt|date("d/m/Y \\à H\\hi") }}</p>
+                        </div>
+                        <div class="location d-flex ms-4">
+                            <p><i class="fa-solid fa-location-dot me-3"></i><p>
+                            <p>{{ event.location }}</p>
+                        </div>
+                    </div>
+                    <p>{{ event.description | raw }}</p>
+                    {% if not passed %}
+                    <div class="text-center mb-3">
+                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ url('app_event_show', {id: event.id, slug: event.slug}) }}" target="_blank" type="button" class="btn btn-primary shadow mx-3">
+                            <i class="fa-brands fa-facebook me-2"></i> Partager sur Facebook
+                        </a>
+                        <a href="https://twitter.com/share?url={{ url('app_event_show', {id: event.id, slug: event.slug}) }}&text={{ event.description }}" target="_blank" class="btn btn-primary shadow mx-3">
+                            <i class="fa-brands fa-twitter me-2"></i> Partager sur Twitter
+                        </a>
+                        <a href="https://www.linkedin.com/shareArticle?url={{ url('app_event_show', {id: event.id, slug: event.slug}) }}&title={{ event.title }}&summary={{ event.description }}&source={{ "Rotary Porto Vecchio"|url_encode }}" target="_blank" class="btn btn-primary shadow mx-3">
+                            <i class="fa-brands fa-linkedin me-2"></i> Partager sur LinkedIn
+                        </a>
+                    </div>
+                    <div class="text-center">
+                        <add-to-calendar-button
+                            name="{{ event.title }}"
+                            description="{{ event.description }}"
+                            startDate="{{ event.occuresAt|date("Y-m-d") }}"
+                            startTime="{{ event.occuresAt|date("H:i") }}"
+                            endTime="{{ event.occuresAt|date_modify("+1 hour")|date("H:i") }}"
+                            location="{{ event.location }}"
+                            options="['Apple','Google','iCal','Microsoft365','Outlook.com','Yahoo']"
+                            timeZone="Europe/Paris"
+                            trigger="click"
+                            label="Ajouter au calendrier"
+                            inline
+                            listStyle="modal"
+                            iCalFileName="{{ event.title }}_{{ event.occuresAt|date("d-m-Y") }}"
+                        >
+                        </add-to-calendar-button>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
     </div>
+    {% if passed %}
+    <div class="row my-5">
+        <div class="card border-0 shadow">
+            <div class="card-body">
+                <div class="card-title d-flex justify-content-between">
+                    <h3>Galerie de l'événement</h3>
+                    <a href="{{ path('app_gallery_show', {id: event.gallery.id, slug: event.gallery.slug}) }}" class="btn btn-secondary"><i class="fa-solid fa-eye pe-2"></i>Voir la galerie</a>
+                </div>
+                <div class="row row-cols-auto g-4">
+                    {% for image in event.gallery.images %}
+                    <div class="col text-center"><img src="{{ vich_uploader_asset(image, 'file') | imagine_filter('mini')}}" alt="photo de {{ event.title }}" role="button" class="shadow" onclick="carouselShow({{ image.id }})"></div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
 </div>
 {% endblock %}

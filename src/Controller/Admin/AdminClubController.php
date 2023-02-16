@@ -37,7 +37,7 @@ class AdminClubController extends AbstractController
     {
         $pages = $pageRepository->findAll();
 
-        return $this->render('admin/club/index.html.twig',[
+        return $this->render('admin/index.html.twig', [
             'pages' => $pages,
         ]);
     }
@@ -117,42 +117,4 @@ class AdminClubController extends AbstractController
 
         return new JsonResponse(['error' => 'Token invalide'],400);
     }
-
-
-    /*#[Route('/administration/club/{id}', name: 'admin_section_edit', methods: ['GET', 'POST'])]
-    public function edit(Section $section, Request $request): Response
-    {
-        $manager = $this->doctrine->getManager();
-
-        $form = $this->createForm(EventType::class, $event);
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()) {
-            $manager->flush();
-
-            $this->addFlash('success', 'L\'événement a été modifié avec succès.');
-
-            return $this->redirectToRoute('admin_event_index');
-        }
-
-        return $this->render('admin/event/edit.html.twig',[
-            'event' => $event,
-            'form' => $form->createView()
-        ]);
-    }
-
-    #[Route('/administration/evenements/{id}', name: 'admin_event_delete', methods: ['DELETE'])]
-    public function delete(Event $event, Request $request): Response
-    {
-        if($this->isCsrfTokenValid('delete'.$event->getId(), $request->get('_csrf_token'))) {
-            $manager = $this->doctrine->getManager();
-    
-            $manager->remove($event);
-            $manager->flush();
-
-            $this->addFlash('success', 'L\'événement a été supprimé avec succès.');
-        }
-
-        return $this->redirectToRoute('admin_event_index');
-    } */
 }

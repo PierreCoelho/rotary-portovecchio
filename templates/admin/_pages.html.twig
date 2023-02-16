@@ -1,0 +1,28 @@
+{% trans_default_domain 'pages' %}
+
+<section class="row g-5 rounded shadow my-3 py-3">
+    <h2 class="text-center">Gestion des pages &laquo; Notre club &raquo;</h2>
+    {% for page in pages %}
+    <div class="col {# bg-dark #}">
+        <div class="card shadow border-0 p-3">
+            <h3 class="text-center h5">{{ page.name|trans }}</h3>
+            <p>Cette page contient actuellement {% if page.sections|length > 1 %}{{ page.sections|length }} sections{% else %} 1 section {% endif %} :</p>
+            <ul class="list-group">
+                {% for section in page.sections %}
+                <li class="list-group-item list-group-item-action border-start-0 border-end-0 rounded-0" aria-current="true">
+                    <div class="d-flex w-100 justify-content-between">
+                    <p class="mb-1 fw-bold">{{ section.title }}</p>
+                    </div>
+                    <div class="text-end">
+                        <small>
+                            {% if section.thumbnailName is not null %} Une image est associée {% else %} Aucune image associée {% endif %}
+                        </small>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+            <p class="text-center mt-4"><a href="{{ path('admin_page_edit', {id:page.id }) }}" class="btn btn-primary"><i class="fa-solid fa-pen-to-square pe-2"></i>Éditer la page</a></p>
+        </div>
+    </div>
+    {% endfor %}
+</section>

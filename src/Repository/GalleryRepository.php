@@ -39,6 +39,16 @@ class GalleryRepository extends ServiceEntityRepository
         }
     }
 
+    public function findAllOrderByEventDate(): array
+    {
+        return $this->createQueryBuilder('g')
+                    ->leftJoin('g.event','e')
+                    ->orderBy('e.occures_at', 'DESC')
+                    ->getQuery()
+                    ->getResult()
+        ;
+    }
+
 //    /**
 //     * @return Gallery[] Returns an array of Gallery objects
 //     */

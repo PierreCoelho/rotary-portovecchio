@@ -14,81 +14,15 @@
 {% endblock %}
 
 {% block body %}
-<div class="container my-4">
+<div class="container my-5">
     <div class="section-title text-center">
         <h2>En ce moment</h2>
         <hr>
     </div>
 
-    <div class="row row-cols-1 row-cols-lg-2 g-4">
-        <div class="col">
-            <div class="card h-100 shadow">
-                <div class="card-header text-end">Dernier événement</div>
-                {% if last_event is not empty %}
-                {% if last_event.thumbnailName is not empty %}
-                <img src="{{ vich_uploader_asset(last_event, 'thumbnailFile') | imagine_filter('thumb') }}" alt="Image d'illustration de l'événement {{ last_event.title }}">
-                {% else %}
-                <img src="https://picsum.photos/600/400?random={{ last_event.id }}" alt="Image d'illustration de l'événement {{ last_event.title }}">
-                {% endif %}
-                <div class="card-body">
-                    <h2 class="card-title text-center">{{ last_event.title }}</h2>
-                    <div class="row g-4">
-                        <div class="col mx-3 text-center">
-                            <div><i class="fa-regular fa-calendar h1"></i></div>
-                            <p>{{ last_event.occuresAt|date("d/m/Y") }}</p>
-                        </div>
-                        <div class="col mx-3 text-center">
-                            <div><i class="fa-regular fa-clock h1"></i></div>
-                            <p>{{ last_event.occuresAt|date("H\\hi") }}</p>
-                        </div>
-                        <div class="col mx-3 text-center">
-                            <div><i class="fa-regular fa-compass h1"></i></div>
-                            <p>{{ last_event.location }}</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <div class="text-end"><a type="button" class="btn btn-warning" href="{{ path('app_event_show', {id: last_event.id, slug: last_event.slug}) }}">Voir le détail</a></div>
-                </div>
-                {% else %}
-                <div class="card-body text-center"><h2 class="h5">Aucun événement passé</h2></div>
-                {% endif %}
-            </div>
-        </div>
-        <div class="col">
-            <div class="card h-100 shadow">
-                <div class="card-header text-end">Prochain événement</div>
-                {% if next_event is not empty %}
-                {% if next_event.thumbnailName is not empty %}
-                <img src="{{ vich_uploader_asset(next_event, 'thumbnailFile') | imagine_filter('thumb') }}" alt="Image d'illustration de l'événement {{ next_event.title }}">
-                {% else %}
-                <img src="https://picsum.photos/600/400?random={{ next_event.id }}" alt="Image d'illustration de l'événement {{ next_event.title }}">
-                {% endif %}
-                <div class="card-body">
-                    <h2 class="card-title text-center">{{ next_event.title }}</h2>
-                    <div class="row g-4">
-                        <div class="col mx-3 text-center">
-                            <div><i class="fa-regular fa-calendar h1"></i></div>
-                            <p>{{ next_event.occuresAt|date("d/m/Y") }}</p>
-                        </div>
-                        <div class="col mx-3 text-center">
-                            <div><i class="fa-regular fa-clock h1"></i></div>
-                            <p>{{ next_event.occuresAt|date("H\\hi") }}</p>
-                        </div>
-                        <div class="col mx-3 text-center">
-                            <div><i class="fa-regular fa-compass h1"></i></div>
-                            <p>{{ next_event.location }}</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <div class="text-end"><a type="button" class="btn btn-warning" href="{{ path('app_event_show', {id: next_event.id, slug: next_event.slug}) }}">Voir le détail</a></div>
-                </div>
-                {% else %}
-                <div class="card-body text-center"><h2 class="h5">Aucun événement prévu pour le moment</h2></div>
-                {% endif %}
-            </div>
-        </div>
+    <div class="row row-cols-1 row-cols-lg-2 g-4 mb-4">
+        {{ include('app/_event.html.twig', {event: last_event, passed: true}) }}
+        {{ include('app/_event.html.twig', {event: next_event, passed: true}) }}
     </div>
 </div>
 {% endblock %}

@@ -25,16 +25,55 @@ class AdminEventController extends AbstractController
     {
         $this->doctrine = $doctrine;
     }
-    
+
     #[Route('/administration/evenements', name: 'admin_event_index')]
     public function index(EventRepository $eventRepository): Response
     {
         $futurEvents = $eventRepository->findFuturEvents();
-        $passedEvents = $eventRepository->findPastEvents();
+        $pastEvents = $eventRepository->findPastEvents();
+        $nextEvent = $eventRepository->findNextEvent();
+        $galleries = 0;
+
+        foreach ($pastEvents as $event) {
+            if($event->getGallery() != null){
+                $galleries++;
+            }
+        }
+
+        return $this->render('admin/index.html.twig', [
+            'futur_events' => $futurEvents,
+            'next_event' => $nextEvent,
+            'past_events' => $pastEvents,
+            'galleries' => $galleries,
+        ]);
+    }
+    
+    #[Route('/administration/evenements/evenements-futurs', name: 'admin_futur_event_list')]
+    public function futurEventsList(EventRepository $eventRepository): Response
+    {
+        $events = $eventRepository->findFuturEvents();
 
         return $this->render('admin/event/index.html.twig',[
-            'futur_events' => $futurEvents,
-            'passed_events' => $passedEvents,
+            'events' => $events,
+        ]);
+    }
+
+    #[Route('/administration/evenements/evenements-passes-avec-galerie', name: 'admin_past_event_list_gallery')]
+    #[Route('/administration/evenements/evenements-passes-sans-galerie', name: 'admin_past_event_list_no_gallery')]
+    public function eventsListWithGallery(EventRepository $eventRepository, Request $request): Response
+    {
+        dump($request->attributes->get('_route'));
+        $events = $eventRepository->findPastEvents();
+
+        if($request->attributes->get('_route') == 'admin_past_event_list_gallery'){
+            $gallery = true;
+        } else {
+            $gallery = false;
+        }
+
+        return $this->render('admin/event/index.html.twig',[
+            'events' => $events,
+            'gallery' => $gallery,
         ]);
     }
 

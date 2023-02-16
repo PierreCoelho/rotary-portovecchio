@@ -24,13 +24,13 @@ class AdminUserController extends AbstractController
     {
         $this->doctrine = $doctrine;
     }
-    
+
     #[Route('/administration/membres', name: 'admin_user_index')]
     public function index(UserRepository $userRepository): Response
     {
-        $users = $userRepository->findAll();
+        $users= $userRepository->findAll();
 
-        return $this->render('admin/user/index.html.twig',[
+        return $this->render('admin/index.html.twig', [
             'users' => $users,
         ]);
     }

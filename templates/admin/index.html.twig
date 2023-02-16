@@ -14,41 +14,25 @@
 {% endblock %}
 
 {% block body %}
-<div class="container my-4">
-    <section>
-        <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3 g-4">
-            <div class="col">
-                <div class="card h-100 shadow">
-                    <div class="card-header pt-3 text-center">
-                        <h3>Éditer les pages "Notre club"</h3>
-                    </div>
-                    <div class="card-body text-center">
-                        {% for page in pages %}
-                        <p><a href="{{ path('admin_page_edit', {id:page.id }) }}">{{ page.name|trans }}</a></p>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card h-100 shadow">
-                    <div class="card-header text-center pt-3"><h3>Gérer les événements</h3></div>
-                    <div class="card-body text-center">
-                        <p><a href="{{ path('admin_event_index') }}">Liste des événements</a></p>
-                        <p><a href="{{ path('admin_event_new') }}">Ajouter un événement</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card h-100 shadow">
-                    <div class="card-header text-center pt-3"><h3>Gérer les membres</h3></div>
-                    <div class="card-body text-center">
-                        <p><a href="{{ path('admin_user_index') }}">Liste des membres</a></p>
-                        <p><a href="{{ path('admin_user_new') }}">Ajouter un membre</a></p>
-                        <p>Envoyer un message aux membres</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<div class="container my-5">
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link {{ app.request.get('_route') == 'admin_event_index' ? 'active' }}" href="{{ path('admin_event_index') }}">Événements</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link {{ app.request.get('_route') == 'admin_club_index' ? 'active' }}" href="{{ path('admin_club_index') }}">Pages</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link {{ app.request.get('_route') == 'admin_user_index' ? 'active' }}" href="{{ path('admin_user_index') }}">Membres</a>
+        </li>
+    </ul>
+
+    {% if app.request.get('_route') == 'admin_event_index' %}
+    {{ include('admin/_events.html.twig', {futur_events: futur_events, past_events : past_events, next_event: next_event}) }}
+    {% elseif app.request.get('_route') == 'admin_club_index' %}
+    {{ include('admin/_pages.html.twig', {pages: pages}) }}
+    {% else %}
+    {{ include('admin/_members.html.twig', {users: users}) }}
+    {% endif %}
 </div>
 {% endblock %}

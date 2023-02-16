@@ -1,0 +1,36 @@
+<div class="col">
+    <div class="card h-100 shadow">
+        <div class="card-header text-end">
+            {% if passed %}Dernier événement{% else %}Prochain événement{% endif %}
+        </div>
+        {% if event is not empty %}
+            {% if event.thumbnailName is not empty %}
+            <img src="{{ vich_uploader_asset(event, 'thumbnailFile') | imagine_filter('thumb') }}" alt="Image d'illustration de l'événement {{ event.title }}">
+            {% else %}
+            <img src="https://picsum.photos/600/400?random={{ event.id }}" alt="Image d'illustration de l'événement {{ event.title }}">
+            {% endif %}
+            <div class="card-body">
+                <h2 class="card-title text-center">{{ event.title }}</h2>
+                <div class="row g-4">
+                    <div class="col mx-3 text-center">
+                        <div><i class="fa-regular fa-calendar h1"></i></div>
+                        <p>{{ event.occuresAt|date("d/m/Y") }}</p>
+                    </div>
+                    <div class="col mx-3 text-center">
+                        <div><i class="fa-regular fa-clock h1"></i></div>
+                        <p>{{ event.occuresAt|date("H\\hi") }}</p>
+                    </div>
+                    <div class="col mx-3 text-center">
+                        <div><i class="fa-regular fa-compass h1"></i></div>
+                        <p>{{ event.location }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="text-end"><a type="button" class="btn btn-warning" href="{{ path('app_event_show', {id: event.id, slug: event.slug}) }}"><i class="fa-solid fa-eye pe-2"></i>Voir le détail</a></div>
+            </div>
+            {% else %}
+            <div class="card-body text-center"><h2 class="h5">Aucun événement passé</h2></div>
+        {% endif %}
+    </div>
+</div>

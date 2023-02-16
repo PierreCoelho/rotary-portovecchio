@@ -29,16 +29,6 @@ class AdminGalleryController extends AbstractController
     {
         $this->doctrine = $doctrine;
     }
-    
-    #[Route('/administration/galerie', name: 'admin_gallery_index')]
-    public function index(GalleryRepository $galleryRepository): Response
-    {
-        $galleries = $galleryRepository->findAll();
-
-        return $this->render('admin/gallery/index.html.twig',[
-            'galleries' => $galleries,
-        ]);
-    }
 
     #[Route('/administration/galerie/ajouter-des-photos', name: 'admin_gallery_new')]
     public function new(Request $request): Response
