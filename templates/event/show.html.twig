@@ -2,6 +2,16 @@
 
 {% block title %}{{ event.title }}{% endblock %}
 
+{% block banner %}
+<section class="banner text-center shadow">
+    <div class="banner-filter">
+        <div class="d-flex justify-content-center align-items-center h-100">
+            <h1>Détails de l'événement</h1>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
 {% block body %}
 <div class="container my-4">
     {% if passed %}

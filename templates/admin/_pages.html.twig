@@ -6,7 +6,15 @@
     <div class="col {# bg-dark #}">
         <div class="card shadow border-0 p-3">
             <h3 class="text-center h5">{{ page.name|trans }}</h3>
-            <p>Cette page contient actuellement {% if page.sections|length > 1 %}{{ page.sections|length }} sections{% else %} 1 section {% endif %} :</p>
+            <p>
+                {% if page.sections|length > 1 %}
+                    Cette page contient actuellement {{ page.sections|length }} sections :
+                {% elseif page.sections|length == 1 %} 
+                    Cette page contient actuellement 1 section :
+                {% else %} 
+                    Cette page ne contient aucune section 
+                {% endif %}
+            </p>
             <ul class="list-group">
                 {% for section in page.sections %}
                 <li class="list-group-item list-group-item-action border-start-0 border-end-0 rounded-0" aria-current="true">
