@@ -36,8 +36,6 @@ class AppController extends AbstractController
             $request->query->getInt('page', 1),
             6
         );
-        
-        // $galleries = $galleryRepository->findAllOrderByEventDate();
 
         return $this->render('gallery/index.html.twig', [
             'galleries' => $galleries,

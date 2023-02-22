@@ -62,7 +62,6 @@ class AdminEventController extends AbstractController
     #[Route('/administration/evenements/evenements-passes-sans-galerie', name: 'admin_past_event_list_no_gallery')]
     public function eventsListWithGallery(EventRepository $eventRepository, Request $request): Response
     {
-        dump($request->attributes->get('_route'));
         $events = $eventRepository->findPastEvents();
 
         if($request->attributes->get('_route') == 'admin_past_event_list_gallery'){

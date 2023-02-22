@@ -23,7 +23,7 @@ class ContactNotification {
         $email = (new Email())
             ->from('contact@rotary-portovecchio.org')
             ->to('nathalie.berolatti@rotary-portovecchio.org')
-            ->subject('Nouveau message sur le site de la part de'.$contact->getFirstName().' '.$contact->getLastName())
+            ->subject('Nouveau message sur le site de la part de '.$contact->getFirstName().' '.$contact->getLastName())
             ->html($this->renderer->render('contact/email.html.twig', [
                 'contact' => $contact,
             ]));

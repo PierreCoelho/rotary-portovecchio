@@ -14,12 +14,12 @@
             <script src="https://cdn.jsdelivr.net/npm/add-to-calendar-button@2" async defer></script>
         {% endblock %}
     </head>
-    <body class="d-flex flex-column">
+    <body class="d-flex flex-column h-100">
         {{ include('_header.html.twig') }}
 
         {% block banner %}{% endblock %}
 
-        {% block body %}{% endblock %}
+        <main class="flex-shrink-0">{% block body %}{% endblock %}</main>
 
         {{ include('_footer.html.twig') }}
     </body>

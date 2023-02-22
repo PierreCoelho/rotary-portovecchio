@@ -12,9 +12,9 @@ class AppFixtures extends Fixture
     {
         $faker = \Faker\Factory::create('fr_FR');
 
-        for ($i=0; $i < 5; $i++) { 
+        for ($i=0; $i < 8; $i++) { 
             $event = new Event();
-            $event->setTitle($faker->realText(10))
+            $event->setTitle($faker->realText(20))
                   ->setDescription($faker->realText())
                   ->setLocation($faker->address())
                   ->setOccuresAt($faker->dateTimeBetween('now', '+ 2 months'))
@@ -23,9 +23,9 @@ class AppFixtures extends Fixture
             $manager->persist($event);
         }
 
-        for ($j=0; $j < 8; $j++) { 
+        for ($j=0; $j < 20; $j++) { 
             $event = new Event();
-            $event->setTitle($faker->realText(10))
+            $event->setTitle($faker->realText(20))
                   ->setDescription($faker->realText())
                   ->setLocation($faker->address())
                   ->setOccuresAt($faker->dateTimeBetween('-1 year', 'now'))

@@ -83,6 +83,7 @@ class AdminGalleryController extends AbstractController
                 $gallery->addImage($uploadedImage);
             }
             $manager->persist($gallery);
+            $manager->persist($event);
             $manager->flush();
 
             $this->addFlash('success', 'Les images de cet événement ont été modifiées avec succès.');

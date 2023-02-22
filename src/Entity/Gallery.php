@@ -19,7 +19,7 @@ class Gallery
     #[ORM\OneToMany(mappedBy: 'gallery', targetEntity: Image::class, orphanRemoval: true, cascade: ['persist'])]
     private Collection $images;
 
-    #[ORM\OneToOne(inversedBy: 'gallery', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'gallery', cascade: ['persist'])]
     private ?Event $event = null;
 
     public function __construct()
