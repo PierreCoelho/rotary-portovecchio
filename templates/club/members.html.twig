@@ -31,9 +31,8 @@
                     <tr>
                         <th scope="row" class="text-center">{% if member.isHonorary %} <i class="fa-solid fa-award" title="Membre honoraire"></i> {% endif %}</th>
                         <td>{{ member.lastName|upper ~ ' ' ~ member.firstName }}</td>
-                        <td></td>
+                        <td>{% if member.fonction is not empty %}{{ member.fonction.name }}{% endif %}</td>
                         <td>{{ member.email }}</td>
-                        {# <td>{{ member.firstName|lower| replace({'é':"e", 'è':"e", 'ê':"e", 'ë':"e", 'ï':"i", 'î':"i", 'à':"a", 'â':"a", 'ä':"a", 'ü':"u", 'ù':"u"}) ~ '.' ~ member.lastName|lower| replace({'é':"e", 'è':"e", 'ê':"e", 'ë':"e", 'ï':"i", 'î':"i", 'à':"a", 'â':"a", 'ä':"a", 'ü':"u", 'ù':"u"}) ~ '@rotary-portovecchio.org' }}</td> #}
                     </tr>
                     {% endfor %}
                 </tbody>

@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[IsGranted('ROLE_ADMIN')]
@@ -80,6 +82,38 @@ class AdminUserController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+    #[Route('/administration/membres/{id}/modifier-mot-de-passe', name: 'admin_user_password_edit', methods: ['GET', 'POST'])]
+    public function passwordEdit(User $user, Request $request): Response
+    {
+        $manager = $this->doctrine->getManager();
+
+        $form = $this->createFormBuilder($user)
+            ->add('plainPassword', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'first_options' => ['label' => 'Mot de passe', 'hash_property_path' => 'password'],
+                'second_options' => ['label' => 'Confirmer le mot de passe'],
+                'mapped' => false,
+                'required'   => false,
+            ])
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $manager->flush();
+
+            $this->addFlash('success', 'Le mot de passe du membre a été modifié avec succès.');
+
+            return $this->redirectToRoute('admin_user_index');
+        }
+
+        return $this->render('admin/user/edit_password.html.twig',[
+            'user' => $user,
+            'form' => $form->createView()
+        ]);
+    }
+
 
     #[Route('/administration/membres/{id}', name: 'admin_user_delete', methods: ['DELETE'])]
     public function delete(User $user, Request $request): Response

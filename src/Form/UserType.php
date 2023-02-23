@@ -3,8 +3,10 @@
 namespace App\Form;
 
 use App\Entity\User;
+use App\Entity\Fonction;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -25,15 +27,14 @@ class UserType extends AbstractType
                 ],
                 'expanded' => true,
             ])
-            ->add('plainPassword', RepeatedType::class, [
-                'type' => PasswordType::class,
-                'first_options' => ['label' => 'Password', 'hash_property_path' => 'password'],
-                'second_options' => ['label' => 'Repeat Password'],
-                'mapped' => false,
-                'required'   => false,
-            ])
             ->add('first_name')
             ->add('last_name')
+            ->add('fonction', EntityType::class, [
+                'class' => Fonction::class,
+                'choice_label' => 'name',
+                'required' => false,
+            ])
+            ->add('is_honorary')
         ;
     }
 

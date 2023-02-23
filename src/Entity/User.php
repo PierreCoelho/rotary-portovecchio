@@ -6,8 +6,11 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[UniqueEntity('fonction')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -35,6 +38,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(nullable: true)]
     private ?bool $is_honorary = null;
+
+    #[ORM\OneToOne(inversedBy: 'user', cascade: ['persist', 'remove'])]
+    private ?Fonction $fonction = null;
 
     public function getId(): ?int
     {
@@ -138,6 +144,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsHonorary(?bool $is_honorary): self
     {
         $this->is_honorary = $is_honorary;
+
+        return $this;
+    }
+
+    public function getFonction(): ?Fonction
+    {
+        return $this->fonction;
+    }
+
+    public function setFonction(?Fonction $fonction): self
+    {
+        $this->fonction = $fonction;
 
         return $this;
     }

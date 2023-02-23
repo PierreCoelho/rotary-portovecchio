@@ -11,17 +11,19 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Nom et prénom</th>
-                    <th>Adresse email</th>
-                    <th>Role</th>
-                    <th>Actions</th>
+                    <th scope="col">Nom et prénom</th>
+                    <th scope="col">Adresse email</th>
+                    <th scope="col">Fonction</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">Actions</th>
                 </tr>
             </thead>
             <tbody>
             {% for user in users %}
                 <tr>
-                    <td>{{ user.firstName ~ ' ' ~ user.lastName }}</td>
+                    <th scope="row">{{ user.firstName ~ ' ' ~ user.lastName }}</th>
                     <td>{{ user.email }}</td>
+                    <td>{% if user.fonction is not empty %}{{user.fonction.name}}{% endif %}</td>
                     {% if 'ROLE_SUPER_ADMIN' in user.roles %}
                     <td>Super Administrateur</td>
                     {% elseif 'ROLE_ADMIN' in user.roles %}
@@ -31,6 +33,7 @@
                     {% endif %}
                     <td>
                         <a href="{{ path('admin_user_edit', {id: user.id}) }}" role="button" class="btn btn-primary"><i class="fa-solid fa-pen-to-square pe-2"></i>Editer</a>
+                        <a href="{{ path('admin_user_password_edit', {id: user.id}) }}" role="button" class="btn btn-outline-primary"><i class="fa-solid fa-pen-to-square pe-2"></i>Editer le mot de passe</a>
                         <form method="post" action="{{ path('admin_user_delete', {id: user.id}) }}" class="d-inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir supprimer le compte de {{ user.firstName ~ ' ' ~ user.lastName }} ?')">
                             <input type="hidden" name="_method" value="DELETE">
                             <input type="hidden" name="_csrf_token" value="{{ csrf_token('delete' ~ user.id) }}">
